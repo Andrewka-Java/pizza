@@ -1,6 +1,7 @@
-package com.pizzakamenec.repository;
+package com.pizzakamenec.repository.impl;
 
 import com.pizzakamenec.model.Pizza;
+import com.pizzakamenec.repository.api.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public class PizzaRepositoryImpl {
+public class PizzaRepositoryImpl implements PizzaRepository {
 
     @Autowired
     private MongoTemplate mongoOperations;
@@ -38,7 +39,7 @@ public class PizzaRepositoryImpl {
         return mongoOperations.findOne(query, Pizza.class);
     }
 
-    public List<Pizza> searchByCost(BigDecimal beginPrice, BigDecimal endPrice) {
+    public List<Pizza> searchByCost(Double beginPrice, Double endPrice) {
         Query query = new Query();
         query.addCriteria(
                         Criteria.where("cost")

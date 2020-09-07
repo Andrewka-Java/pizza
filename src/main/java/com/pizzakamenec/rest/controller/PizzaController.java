@@ -1,32 +1,24 @@
-package com.pizzakamenec.rest;
+package com.pizzakamenec.rest.controller;
 
 import com.pizzakamenec.model.Pizza;
-import com.pizzakamenec.repository.PizzaRepository;
-import com.pizzakamenec.repository.PizzaRepositoryImpl;
+import com.pizzakamenec.repository.api.PizzaRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/pizzas")
+@AllArgsConstructor
 @Api(value = "pizza resources", description = "Operations with pizza-entity")
 public class PizzaController {
 
 
-    private final PizzaRepositoryImpl pizzaRepository;
     private final PizzaRepository pizzaRepo;
-
-    @Autowired
-    public PizzaController(PizzaRepositoryImpl pizzaRepository,PizzaRepository pizzaRepo) {
-        this.pizzaRepository = pizzaRepository;
-        this.pizzaRepo = pizzaRepo;
-    }
 
 
     @ApiOperation(value = "Find all pizzas", response = List.class)
@@ -36,7 +28,7 @@ public class PizzaController {
     })
     @GetMapping(value = "/", produces = "application/json")
     public List<Pizza> findAll() {
-        return pizzaRepository.findAll();
+        return pizzaRepo.findAll();
     }
 
 
@@ -48,7 +40,7 @@ public class PizzaController {
     })
     @GetMapping(value = "/{title}", produces = "application/json")
     public Pizza findPizzaByTitle(@PathVariable("title") String title) {
-        return pizzaRepository.findByTitle(title);
+        return pizzaRepo.findByTitle(title);
     }
 
 
@@ -59,9 +51,9 @@ public class PizzaController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @GetMapping(value = "/prices", produces = "application/json")
-    public List<Pizza> searchPizzaByPrice(@RequestParam("beginPrice") BigDecimal beginPrice,
-                                          @RequestParam("endPrice") BigDecimal endPrice) {
-        return pizzaRepository.searchByCost(beginPrice, endPrice);
+    public List<Pizza> searchPizzaByPrice(@RequestParam("beginPrice") Double beginPrice,
+                                          @RequestParam("endPrice") Double endPrice) {
+        return pizzaRepo.searchByCost(beginPrice, endPrice);
     }
 
 
@@ -73,7 +65,7 @@ public class PizzaController {
     })
     @PostMapping(value = "/")
     public void savePizza(@RequestBody Pizza pizza) {
-        pizzaRepository.save(pizza);
+        pizzaRepo.save(pizza);
     }
 
 
@@ -86,7 +78,7 @@ public class PizzaController {
     @PutMapping("/{pizzaId}")
     public void updatePizza(@RequestBody Pizza pizza, @PathVariable("pizzaId") String pizzaId) {
         pizza.setId(pizzaId);
-        pizzaRepository.update(pizza);
+        pizzaRepo.update(pizza);
     }
 
 
@@ -98,7 +90,7 @@ public class PizzaController {
     })
     @DeleteMapping("/{pizzaId}")
     public void deletePizza(@PathVariable("pizzaId") String pizzaId) {
-        pizzaRepository.deleteById(pizzaId);
+        pizzaRepo.deleteById(pizzaId);
     }
 
 
