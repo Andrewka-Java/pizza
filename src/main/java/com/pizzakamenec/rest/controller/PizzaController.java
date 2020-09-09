@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/pizzas")
 @AllArgsConstructor
 @Api(value = "pizza resources", description = "Operations with pizza-entity")
+@CrossOrigin("http://localhost:4200")
 public class PizzaController {
 
 

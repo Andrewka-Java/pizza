@@ -1,0 +1,33 @@
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th style="color: black">#</th>
+                        <th style="color: black">Title</th>
+                        <th style="color: black">Description</th>
+                        <th style="color: black">Cost</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    <tr *ngFor="let pizza of pizzas; let index = index">
+                        <td id="id">{{index + 1}}</td>
+                        <td>{{pizza.id}}</td>
+                        <td>{{pizza.title}}</td>
+                        <td>{{pizza.description}}</td>
+                        <td>{{pizza.cost}}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

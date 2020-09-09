@@ -8,13 +8,15 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import {AppRoutingModule} from './app-routing.module';
+import { PizzasComponent } from './components/pizzas/pizzas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    PizzasComponent
   ],
     imports: [
         BrowserModule,
